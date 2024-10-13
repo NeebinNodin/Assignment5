@@ -10,6 +10,8 @@
 
 // Function Prototypes
 std::vector<std::string> loadQuestions(const std::string &filepath);
+void askQuestions(const std::vector<std::string> &questions, std::vector<double> &answers, int numQuestions);
+void saveResults(const std::string &filepath2, const std::vector<std::string> &questions, const std::vector<double> &answers);
 
 int main()
 {
@@ -27,9 +29,9 @@ int main()
 	std::string filepath2 = "Results.txt";
 	
 	const int numQuestions = 3;
-	srand(time(NULL));
+	/*srand(time(NULL));
 	int randomNumber; 
-	double answer;
+	double answer;*/
 
 	/*std::string line;
 	std::ifstream ifsQuestions(filepath);
@@ -43,8 +45,11 @@ int main()
 	// Ask 3 questions and answer, save to file Results.txt
 
 	std::cout << "Welcome to the Math Quiz\n\n";
+	
+	askQuestions(questions, answers, numQuestions);
+	saveResults(filepath2, questions, answers);
 
-	std::ofstream ofsResults(filepath2);
+	/*std::ofstream ofsResults(filepath2);
 	for (int i = 0; i < numQuestions; i++)
 	{
 		randomNumber = rand() % 10 + 1;
@@ -56,7 +61,7 @@ int main()
 		ofsResults << questions[i] << " = " << answer << "\n";
 	}
 	std::cout << "\nResults saved to Results.txt\n";
-	ofsResults.close();
+	ofsResults.close();*/
 
 
 	
@@ -76,4 +81,34 @@ std::vector<std::string> loadQuestions(const std::string &filepath)
 	}
 	ifsQuestions.close();
 	return questions;
+}
+void askQuestions(const std::vector<std::string> &questions, std::vector<double> &answers, int numQuestions)
+{
+	//const int numQuestions = 3;
+	srand(time(NULL));
+	int randomNumber;
+	double answer;
+	//std::ofstream ofsResults(filepath2);
+	for (int i = 0; i < numQuestions; i++)
+	{
+		randomNumber = rand() % 10 + 1;
+		std::cout << "Question " << (i + 1) << ": " << questions[randomNumber] << "\n";
+		std::cout << "Enter your answer: ";
+		std::cin >> answer;
+		answers.push_back(answer);
+
+		//ofsResults << questions[i] << " = " << answer << "\n";
+	}
+	//std::cout << "\nResults saved to Results.txt\n";
+	//ofsResults.close();
+}
+void saveResults(const std::string &filepath2, const std::vector<std::string> &questions, const std::vector<double> &answers)
+{
+	std::ofstream ofsResults(filepath2);
+	for (size_t i = 0; i < answers.size(); i++)
+	{
+		ofsResults << questions[i] << " = " << answers[i] << "\n";
+	}
+	ofsResults.close();
+	std::cout << "\nResults saved to Results.txt\n";
 }
