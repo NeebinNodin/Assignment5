@@ -84,7 +84,10 @@ std::vector<std::string> loadQuestions(const std::string &filepath)
 	ifsQuestions.close();
 	return questions;
 }
-void askQuestions(const std::vector<std::string> &questions, std::vector<double> &answers, int numQuestions)
+
+// had warnings about the functions can be made static. Don't fully understand but did it to make
+// the warnings go away.. seems to work....
+void static askQuestions(const std::vector<std::string> &questions, std::vector<double> &answers, int numQuestions)
 {
 	//const int numQuestions = 3;
 	srand(time(NULL));
@@ -104,7 +107,7 @@ void askQuestions(const std::vector<std::string> &questions, std::vector<double>
 	//std::cout << "\nResults saved to Results.txt\n";
 	//ofsResults.close();
 }
-void saveResults(const std::string &filepath2, const std::vector<std::string> &questions, const std::vector<double> &answers)
+void static saveResults(const std::string &filepath2, const std::vector<std::string> &questions, const std::vector<double> &answers)
 {
 	std::ofstream ofsResults(filepath2);
 	for (size_t i = 0; i < answers.size(); i++) // didn't know if I should of used size_t or int. it gave suggension of
